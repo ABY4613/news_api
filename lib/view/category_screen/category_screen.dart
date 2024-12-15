@@ -1,111 +1,142 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:news_api/utilts/colors_const.dart';
-import 'package:news_api/utilts/images_const.dart';
 import 'package:news_api/view/bottom_navigation_bar_screen/bottom_navigation_bar_screen.dart';
+import 'package:news_api/view/home_screen/home_screen.dart';
 
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
+
+  @override
+  State<CategoryScreen> createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> {
+  // List of favorite topics
+  final List<Map<String, dynamic>> _topics = [
+    {'icon': '🏈', 'label': 'Sports'},
+    {'icon': '⚖️', 'label': 'Politics'},
+    {'icon': '😊', 'label': 'Life'},
+    {'icon': '🎮', 'label': 'Gaming'},
+    {'icon': '🐻', 'label': 'Animals'},
+    {'icon': '🌴', 'label': 'Nature'},
+    {'icon': '🍔', 'label': 'Food'},
+    {'icon': '🎨', 'label': 'Art'},
+    {'icon': '📜', 'label': 'History'},
+    {'icon': '👗', 'label': 'Fashion'},
+  ];
+
+  final Set<String> _selectedTopics = {};
+
+  void _toggleSelection(String label) {
+    setState(() {
+      if (_selectedTopics.contains(label)) {
+        _selectedTopics.remove(label);
+      } else {
+        _selectedTopics.add(label);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 17),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                "1",
-                style: GoogleFonts.montserrat(
-                    color: ColorConstants.BLACK,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18),
-              ),
-              Text(
-                "/3",
-                style: GoogleFonts.montserrat(
-                    color: ColorConstants.GREYSHDE3,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18),
-              ),
-            ],
-          ),
-        ),
-        actions: [
-          InkWell(
-            onTap: () {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BottomNavigationScreen(),
-                  ));
-            },
-            child: Padding(
-              padding: const EdgeInsets.only(right: 17.0),
-              child: Text(
-                "Skip",
-                style: GoogleFonts.montserrat(
-                    color: ColorConstants.BLACK,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18),
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 22),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                ImageConstants.MYAPPLOGO,
-                height: 300,
-                width: 300,
-              ),
-              SizedBox(height: 15),
-              Text(
-                "Choose Products",
-                style: GoogleFonts.montserrat(
-                    color: ColorConstants.BLACK,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 24),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.montserrat(
-                    color: ColorConstants.GREYSHDE1,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14),
-              ),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 19, vertical: 24),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      backgroundColor: Colors.white,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              "Prev",
-              style: GoogleFonts.montserrat(
-                  color: ColorConstants.GREYSHDE2,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18),
+            const SizedBox(height: 20),
+            const Text(
+              "Select your favorite topics",
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            Text(
-              "Next",
-              style: GoogleFonts.montserrat(
-                  color: ColorConstants.PRIMARY,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18),
+            const SizedBox(height: 8),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Text(
+                "Select some of your favorite topics to let us suggest better news for you.",
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16, color: Colors.grey),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: GridView.builder(
+                  itemCount: _topics.length,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    childAspectRatio: 3,
+                  ),
+                  itemBuilder: (context, index) {
+                    final topic = _topics[index];
+                    final isSelected = _selectedTopics.contains(topic['label']);
+                    return GestureDetector(
+                      onTap: () => _toggleSelection(topic['label']),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: isSelected ? Colors.blue.shade100 : Colors.white,
+                          border: Border.all(
+                            color: isSelected ? Colors.blue : Colors.grey.shade300,
+                            width: 2,
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade200,
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                topic['icon'],
+                                style: const TextStyle(fontSize: 20),
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                topic['label'],
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w500,
+                                  color: isSelected ? Colors.blue : Colors.black87,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                  minimumSize: const Size(double.infinity, 50),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onPressed: () {
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => BottomNavigationScreen()??HomeScreen(),));
+                },
+                child: const Text(
+                  "Next",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
             ),
           ],
         ),

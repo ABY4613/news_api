@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, prefer_const_literals_to_create_immutables
 
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:news_api/utilts/colors_const.dart';
 import 'package:news_api/view/bottom_navigation_bar_screen/bottom_navigation_bar_screen.dart';
@@ -41,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
       log("Auto-login with saved credentials: $savedUsername");
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => RegisterScreen()),
+        MaterialPageRoute(builder: (context) => BottomNavigationScreen()),
       );
     }
   }
@@ -60,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
   
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => RegisterScreen()),
+        MaterialPageRoute(builder: (context) => BottomNavigationScreen()),
       );
     } else {
       AlertDialog(actions: [Text("Error: Please enter email and password!")],);

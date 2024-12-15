@@ -17,7 +17,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   final List<Widget> screens = [
     HomeScreen(),
     CategoryScreen(),
-    BookmarkScreen(),
+    BookmarksPage(),
     ProfileScreen()
   ];                                                 
 

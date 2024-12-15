@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:news_api/utilts/colors_const.dart';
-import 'package:news_api/view/onboarding_screen/onboarding_screen.dart';
+import 'package:news_api/view/login_screen/login_screen.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => OnboardingScreen(),
+              builder: (context) => LoginScreen(),
             ));
       },
     );
