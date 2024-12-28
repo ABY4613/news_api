@@ -17,7 +17,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
     {'icon': '⚖️', 'label': 'Politics'},
     {'icon': '😊', 'label': 'Life'},
     {'icon': '🎮', 'label': 'Gaming'},
-    {'icon': '🐻', 'label': 'Animals'},
+    {'icon': '🐻', 'label': 'Business'},
     {'icon': '🌴', 'label': 'Nature'},
     {'icon': '🍔', 'label': 'Food'},
     {'icon': '🎨', 'label': 'Art'},

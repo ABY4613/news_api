@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:news_api/controller/news_controller.dart';
 import 'package:news_api/view/bottom_navigation_bar_screen/bottom_navigation_bar_screen.dart';
 import 'package:news_api/view/home_screen/home_screen.dart';
 import 'package:news_api/view/splash_screen/splash_screen.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main()
@@ -20,12 +22,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      
-      home:
-      SplashScreen()
-      );
+    return  MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => NewsProvider()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        
+        home:
+        SplashScreen()
+        ),
+    );
             
   }
 }
